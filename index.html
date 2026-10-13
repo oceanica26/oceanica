@@ -2916,7 +2916,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (_nt) { _nt.classList.remove('is-open'); _nt.setAttribute('aria-expanded', 'false'); }
     // add a browser-history entry so the Back button returns to the previous page
     if (slug !== currentSlug()) {
-      try { history.pushState({ page: slug }, '', '#' + slug); } catch (err) {}
+      try {
+        // if the mobile menu's history entry is on top, reuse it instead of stacking another
+        if (history.state && history.state.menu) history.replaceState({ page: slug }, '', '#' + slug);
+        else history.pushState({ page: slug }, '', '#' + slug);
+      } catch (err) {}
     }
     showPage(slug);
   }, true);
@@ -4108,8 +4112,17 @@ document.addEventListener('DOMContentLoaded', function () {
   }).observe(body, { attributes: true, attributeFilter: ['class'] });
 
   var nl = document.getElementById('navLinks');
+  var menuWasOpen = false;
   if (nl) new MutationObserver(function () {
-    body.style.overflow = nl.classList.contains('is-open') ? 'hidden' : '';
+    var open = nl.classList.contains('is-open');
+    body.style.overflow = open ? 'hidden' : '';
+    if (open && !menuWasOpen) {
+      // menu gets its own history entry so Back closes the menu instead of leaving the site
+      try { history.pushState({ menu: true, page: (history.state && history.state.page) || 'home' }, '', location.href); } catch (e) {}
+    } else if (!open && menuWasOpen) {
+      if (history.state && history.state.menu) { try { history.back(); } catch (e) {} }
+    }
+    menuWasOpen = open;
   }).observe(nl, { attributes: true, attributeFilter: ['class'] });
 })();
 </script>
