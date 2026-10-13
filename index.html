@@ -4,7 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>OCEANICA — Maritime Management Fest, IMU Kochi</title>
-<meta name="description" content="OCEANICA · Maritime Management Fest · Indian Maritime University, Kochi Campus. Navigate. Innovate. Lead.">
+<meta name="description" content="OCEANICA – The Third Wave 2026: the Maritime Management Fest by the School of Maritime Management, Indian Maritime University, Kochi Campus. Theme: Blue Odyssey. 12 November 2026.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://oceanica-liard.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OCEANICA">
+<meta property="og:title" content="OCEANICA – The Third Wave 2026 | Maritime Management Fest, IMU Kochi">
+<meta property="og:description" content="The third edition of the Maritime Management Fest by the School of Maritime Management, IMU Kochi Campus. Theme: Blue Odyssey.">
+<meta property="og:url" content="https://oceanica-liard.vercel.app/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OCEANICA – The Third Wave 2026">
+<meta name="twitter:description" content="Maritime Management Fest · IMU Kochi Campus · Theme: Blue Odyssey.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Event","name":"OCEANICA – The Third Wave 2026","description":"Maritime Management Fest organized by the School of Maritime Management, IMU Kochi Campus. Theme: Blue Odyssey.","startDate":"2026-11-12","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","location":{"@type":"Place","name":"Indian Maritime University, Kochi Campus","address":{"@type":"PostalAddress","addressLocality":"Kochi","addressRegion":"Kerala","addressCountry":"IN"}},"organizer":{"@type":"Organization","name":"School of Maritime Management, Indian Maritime University, Kochi Campus"},"url":"https://oceanica-liard.vercel.app/"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -1323,6 +1334,41 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
 <style>.pillar p,.pillar h3{text-align:left !important; hyphens:manual; -webkit-hyphens:manual; word-spacing:normal;}</style>
 <style>.leader__text,.leader__post{text-align:left !important; hyphens:manual; -webkit-hyphens:manual;}</style>
 <style>.contactinfo__value a{text-decoration:none; border-bottom:1px solid rgba(217,184,102,0.45);} .contactinfo__value a:hover{color:var(--brass-bright); border-bottom-color:var(--brass-bright);}</style>
+<style>
+/* compact event pop-up */
+.vbmodal{padding:1.2rem 1rem !important; align-items:flex-start;}
+.vbmodal__panel{max-width:600px !important; margin:auto !important; padding:1.1rem clamp(0.9rem,2.5vw,1.5rem) 1.4rem !important;}
+.vbmodal h2{font-size:1.3rem !important;}
+.vbmodal__org{font-size:0.78rem !important; margin-bottom:0.8rem !important;}
+.vbmodal__close{width:32px !important; height:32px !important; font-size:1.2rem !important;}
+.vbmodal__poster{max-width:320px !important; margin-left:auto !important; margin-right:auto !important;}
+.vbmodal__facts{grid-template-columns:repeat(auto-fit,minmax(150px,1fr)) !important; gap:0.6rem !important; margin-bottom:0.9rem !important;}
+.vbmodal__fact{padding:0.6rem 0.75rem !important;}
+.vbmodal__fact strong{font-size:0.98rem !important;}
+.vbmodal__fact span{font-size:0.62rem !important;}
+.vbmodal h3{font-size:0.95rem !important; margin:0.9rem 0 0.4rem !important;}
+.vbmodal ul{font-size:0.88rem; line-height:1.5;}
+.vbmodal__cta{margin-top:1.1rem !important;}
+@media (max-width:600px){.vbmodal{padding:0.6rem 0.5rem !important;} .vbmodal__poster{max-width:260px !important;}}
+</style>
+<style>
+/* show the compass on phones/tablets as a soft background dial (desktop untouched) */
+@media (max-width:920px){
+  .compass{display:block !important; width:min(88vw,420px); right:-22vw; top:50%; opacity:0.28; pointer-events:none; z-index:1;}
+}
+@media (max-width:480px){
+  .compass{width:92vw; right:-28vw; opacity:0.3;}
+}
+</style>
+<style>
+/* mobile menu: show ALL links even after scrolling.
+   (backdrop-filter on the scrolled nav made the fixed menu only as tall as the nav bar) */
+@media (max-width:960px){
+  .nav.is-scrolled{backdrop-filter:none !important; -webkit-backdrop-filter:none !important; background:rgba(6,13,46,0.96);}
+  .nav__links{height:100vh; height:100dvh; bottom:auto; -webkit-overflow-scrolling:touch;}
+  .nav__links.is-open{overscroll-behavior:contain;}
+}
+</style>
 </head>
 <body>
 
@@ -1338,7 +1384,7 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
   <div class="nav__links" id="navLinks">
     <a href="javascript:void(0)" data-nav="about">About</a>
     <a href="javascript:void(0)" data-nav="events">Events</a>
-    <a href="javascript:void(0)" data-nav="speakers">Speakers</a>
+    <a href="javascript:void(0)" data-nav="speakers">Speakers &amp; Guests</a>
     <a href="javascript:void(0)" data-nav="sponsors">Our Partners</a>
     <a href="javascript:void(0)" data-nav="gallery">Gallery</a>
     <a href="javascript:void(0)" data-nav="contact">Contact</a>
@@ -1441,14 +1487,15 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
       <p class="eyebrow eyebrow--dark">The Voyage</p>
       <h2>Where strategy<br>meets the sea.</h2>
       <p class="about__text">
-        OCEANICA is IMU Kochi's maritime management fest — a one-day program
-        of competition, built for students who'd rather test a decision than
-        just discuss one.
+        <strong>OCEANICA &ndash; THE THIRD WAVE</strong> is the third edition of the
+        Maritime Management Fest, organized by the School of Maritime Management,
+        IMU Kochi Campus. Its first two editions welcomed 600+ students from
+        100+ colleges across India.
       </p>
       <p class="about__text">
-        Run from a campus that trains the people who move the world's cargo,
-        the fest borrows its instincts: read the conditions, hold your
-        heading, adjust before the storm hits.
+        This year, under the theme <em>&ldquo;BLUE ODYSSEY&rdquo;</em>, the fest
+        highlights sustainability and marine conservation, inspiring a deeper
+        connection with the maritime world.
       </p>
       <a href="javascript:void(0)" data-nav="about" class="link-arrow">Read the full story →</a>
     </div>
@@ -1669,7 +1716,7 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
   <div class="teaserstrip__inner">
     <a href="javascript:void(0)" data-nav="speakers" class="teasercard reveal">
       <span class="badge badge--soon">Coming Soon</span>
-      <h3>Speakers</h3>
+      <h3>Speakers &amp; Guests</h3>
       <p>Lineup announcements rolling out closer to the fest.</p>
       <span class="link-arrow">View page →</span>
     </a>
@@ -1730,21 +1777,20 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
     <div class="about__copy reveal">
       <h2>Where strategy<br>meets the sea.</h2>
       <p class="about__text">
-        OCEANICA is IMU Kochi's maritime management fest — a one-day program
-        of competition, built for students who'd rather test a decision than
-        just discuss one.
-        Run from a campus that trains the people who move the world's cargo,
-        the fest borrows its instincts: read the conditions, hold your
-        heading, adjust before the storm hits.
+        <strong>OCEANICA &ndash; THE THIRD WAVE</strong> is the third edition of the
+        Maritime Management Fest organized by the School of Maritime Management,
+        IMU Kochi Campus. Following the success of its first two editions, which
+        welcomed 600+ students from 100+ colleges across India, the fest
+        celebrates talent, innovation, and collaboration through diverse events.
       </p>
       <p class="about__text">
-        Whether you're building a business case at 2 a.m. or presenting one
-        to a panel that's heard it all before, OCEANICA is where that
-        instinct gets tested against a national field.
+        Beyond competitions, Oceanica offers professional development and
+        networking opportunities.
       </p>
       <p class="about__text">
-        This is our third edition — which means everything here is being
-        built deliberately rather than repeated from a playbook.
+        This year, under the theme <em>&ldquo;BLUE ODYSSEY&rdquo;</em>, the fest
+        highlights sustainability and marine conservation, inspiring a deeper
+        connection with the maritime world.
       </p>
     </div>
     <div class="about__manifest reveal">
@@ -2192,8 +2238,8 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
   </div>
   <div class="pagehead__inner reveal">
     <p class="eyebrow eyebrow--center">The Bridge</p>
-    <h1>Speakers <span class="badge badge--soon">Coming Soon</span></h1>
-    <p class="pagehead__sub">We're finalizing our speaker lineup — industry leaders, alumni and practitioners across strategy, maritime business and enterprise. Names will be added here as confirmed.</p>
+    <h1>Speakers &amp; Guests <span class="badge badge--soon">Coming Soon</span></h1>
+    <p class="pagehead__sub">We're finalizing our speakers and guests lineup — industry leaders, alumni and practitioners across strategy, maritime business and enterprise. Names will be added here as confirmed.</p>
   </div>
 </section>
 
@@ -2217,28 +2263,10 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
       <div class="speaker-card__role-ph"></div>
       <span class="badge badge--soon badge--sm">TBA</span>
     </div>
-    <div class="speaker-card speaker-card--placeholder reveal">
-      <div class="speaker-card__avatar" aria-hidden="true"></div>
-      <div class="speaker-card__name-ph"></div>
-      <div class="speaker-card__role-ph"></div>
-      <span class="badge badge--soon badge--sm">TBA</span>
-    </div>
-    <div class="speaker-card speaker-card--placeholder reveal">
-      <div class="speaker-card__avatar" aria-hidden="true"></div>
-      <div class="speaker-card__name-ph"></div>
-      <div class="speaker-card__role-ph"></div>
-      <span class="badge badge--soon badge--sm">TBA</span>
-    </div>
-    <div class="speaker-card speaker-card--placeholder reveal">
-      <div class="speaker-card__avatar" aria-hidden="true"></div>
-      <div class="speaker-card__name-ph"></div>
-      <div class="speaker-card__role-ph"></div>
-      <span class="badge badge--soon badge--sm">TBA</span>
-    </div>
   </div>
 
   <div class="events__cta reveal">
-    <p>Want to speak at OCEANICA 2026, or know someone who should?</p>
+    <p>Want to speak at OCEANICA 2026, or know someone who should be a guest?</p>
     <a href="javascript:void(0)" data-nav="contact" class="btn btn--ghost">Get in touch</a>
   </div>
 </section>
@@ -2692,7 +2720,7 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
     <a href="javascript:void(0)" data-nav="home">Home</a>
     <a href="javascript:void(0)" data-nav="about">About</a>
     <a href="javascript:void(0)" data-nav="events">Events</a>
-    <a href="javascript:void(0)" data-nav="speakers">Speakers</a>
+    <a href="javascript:void(0)" data-nav="speakers">Speakers &amp; Guests</a>
     <a href="javascript:void(0)" data-nav="sponsors">Our Partners</a>
     <a href="javascript:void(0)" data-nav="gallery">Gallery</a>
     <a href="javascript:void(0)" data-nav="contact">Contact</a>
@@ -2867,15 +2895,48 @@ document.addEventListener('DOMContentLoaded', () => {
     scroller.scrollTop = 0;
   }
 
+  function slugOf(hash) {
+    const h = (hash || '').replace(/^#\/?/, '');
+    return document.querySelector('.page[data-page="' + h + '"]') ? h : 'home';
+  }
+  function currentSlug() {
+    const a = pageEls.find(p => !p.hidden);
+    return a ? a.dataset.page : 'home';
+  }
+
   document.addEventListener('click', (e) => {
     const link = e.target.closest('[data-nav]');
     if (!link) return;
     e.preventDefault();
     e.stopPropagation();
-    showPage(link.dataset.nav);
+    const slug = link.dataset.nav;
+    // close the mobile menu (this handler stops the menu's own click listener from running)
+    const _nl = document.getElementById('navLinks'), _nt = document.getElementById('navToggle');
+    if (_nl) _nl.classList.remove('is-open');
+    if (_nt) { _nt.classList.remove('is-open'); _nt.setAttribute('aria-expanded', 'false'); }
+    // add a browser-history entry so the Back button returns to the previous page
+    if (slug !== currentSlug()) {
+      try { history.pushState({ page: slug }, '', '#' + slug); } catch (err) {}
+    }
+    showPage(slug);
   }, true);
 
-  showPage('home');
+  // Back / Forward buttons (browser, phone gesture, hardware back)
+  window.addEventListener('popstate', () => {
+    // close any open event pop-up first
+    document.querySelectorAll('.vbmodal:not([hidden]) [data-vb-close]').forEach(b => b.click());
+    // close the mobile menu if open
+    const nl = document.getElementById('navLinks'), nt = document.getElementById('navToggle');
+    if (nl) nl.classList.remove('is-open');
+    if (nt) { nt.classList.remove('is-open'); nt.setAttribute('aria-expanded', 'false'); }
+    var s = slugOf(location.hash);
+    if (s !== currentSlug()) showPage(s);
+  });
+
+  // first load: open the page named in the URL (e.g. /#events), else home
+  const first = slugOf(location.hash);
+  try { history.replaceState({ page: first }, '', first === 'home' ? location.pathname + location.search : '#' + first); } catch (err) {}
+  showPage(first);
 });
 
 </script>
@@ -4031,6 +4092,26 @@ document.addEventListener('DOMContentLoaded', function () {
     wrap.appendChild(card);
   });
 });
+</script>
+<script>
+/* Back button support for event pop-ups + mobile menu scroll lock */
+(function () {
+  var body = document.body, wasOpen = false;
+  new MutationObserver(function () {
+    var isOpen = body.classList.contains('vb-open');
+    if (isOpen && !wasOpen) {
+      try { history.pushState({ modal: true, page: (history.state && history.state.page) || 'home' }, '', location.href); } catch (e) {}
+    } else if (!isOpen && wasOpen) {
+      if (history.state && history.state.modal) { try { history.back(); } catch (e) {} }
+    }
+    wasOpen = isOpen;
+  }).observe(body, { attributes: true, attributeFilter: ['class'] });
+
+  var nl = document.getElementById('navLinks');
+  if (nl) new MutationObserver(function () {
+    body.style.overflow = nl.classList.contains('is-open') ? 'hidden' : '';
+  }).observe(nl, { attributes: true, attributeFilter: ['class'] });
+})();
 </script>
 </body>
 </html>
