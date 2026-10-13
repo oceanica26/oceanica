@@ -615,28 +615,20 @@ h1 .badge, h2 .badge{font-size:0.5em; margin-left:0.5em; transform:translateY(-0
 .sponsors__inner{max-width:var(--container); margin:0 auto 4rem; display:grid; grid-template-columns:repeat(4,1fr); gap:1.4rem;}
 .tier{background:var(--navy-mid); border:1px solid var(--navy-line); border-radius:8px; padding:1.8rem 1.4rem; text-align:center;}
 .tier__name{font-family:var(--font-display); font-size:1.15rem; color:var(--paper); margin-bottom:0.8rem;}
-.tier__price{font-family:var(--font-mono); font-size:0.9rem; margin-bottom:1.2rem;}
 .tier__benefits{list-style:none; margin:0; padding:0; font-size:0.85rem; color:#fff;}
 .sponsors__logos{text-align:center;}
 .sponsors__inner{align-items:start;}
-.tier__price{color:var(--brass-bright);}
 .tier__toggle{padding:0.55rem 1.2rem; font-size:0.85rem;}
 .tier__panel{margin-top:1.2rem; padding-top:1.1rem; border-top:1px solid var(--navy-line); text-align:left;}
 .tier__panel[hidden]{display:none;}
 .tier__panel .tier__benefits{color:#fff; font-size:0.88rem; line-height:1.5;}
 .tier__panel .tier__benefits li{position:relative; padding-left:1.1rem; margin-bottom:0.5rem;}
 .tier__panel .tier__benefits li::before{content:"\2013"; position:absolute; left:0; color:var(--brass-bright);}
-.tier__sub{font-family:var(--font-mono); font-size:0.8rem; color:var(--brass-bright); margin:0.9rem 0 0.5rem;}
-.tier__sub:first-child{margin-top:0;}
-.sponsors__stats,.sponsors__rates{max-width:var(--container); margin:0 auto 3.5rem; text-align:center;}
+.sponsors__stats{max-width:var(--container); margin:0 auto 3.5rem; text-align:center;}
 .statgrid{display:flex; flex-wrap:wrap; justify-content:center; gap:1.2rem 3rem; margin-top:1.4rem; padding:1.6rem 1rem; border-top:1px solid var(--navy-line); border-bottom:1px solid var(--navy-line);}
 .statgrid div{min-width:110px;}
 .statgrid strong{display:block; font-family:var(--font-display); font-size:clamp(2rem,5vw,2.8rem); color:var(--brass-bright); font-weight:500;}
 .statgrid span{font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:#fff;}
-.ratesgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.2rem; margin-top:1.4rem;}
-.rate{background:var(--navy-mid); border:1px solid var(--navy-line); border-radius:8px; padding:1.3rem 1.2rem; color:var(--paper);}
-.rate span{display:block; font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.6rem;}
-.rate strong{display:block; font-weight:500; line-height:1.6;}
 .logostrip{display:flex; justify-content:center; margin-top:1.5rem;}
 .logostrip__slot{
   border:1px dashed var(--navy-line); border-radius:6px; padding:1.4rem 3rem;
@@ -1168,7 +1160,6 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
 .sponsors__inner{align-items:stretch;}
 .tier{display:flex; flex-direction:column; align-items:center; box-sizing:border-box; min-width:0;}
 .tier__name{line-height:1.3; min-height:2.6em; display:flex; align-items:center; justify-content:center; text-align:center; margin-bottom:0.6rem;}
-.tier__price{white-space:nowrap; font-size:0.85rem; letter-spacing:0; min-height:1.4rem; display:flex; align-items:center; justify-content:center;}
 .tier__toggle{margin-top:auto;}
 .tier__panel{width:100%;}
 /* ===================== REGISTER PAGE ===================== */
@@ -2301,7 +2292,6 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
   <div class="sponsors__inner">
     <div class="tier reveal">
       <div class="tier__name">Title Partner</div>
-      <div class="tier__price">₹3,50,000</div>
       <button type="button" class="btn btn--brass tier__toggle" data-tier-toggle aria-expanded="false">Know benefits</button>
       <div class="tier__panel" hidden>
         <ul class="tier__benefits">
@@ -2322,7 +2312,6 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
     </div>
     <div class="tier reveal">
       <div class="tier__name">Associate Partner</div>
-      <div class="tier__price">₹1,50,000</div>
       <button type="button" class="btn btn--brass tier__toggle" data-tier-toggle aria-expanded="false">Know benefits</button>
       <div class="tier__panel" hidden>
         <ul class="tier__benefits">
@@ -2339,7 +2328,6 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
     </div>
     <div class="tier reveal">
       <div class="tier__name">Event Partner</div>
-      <div class="tier__price">₹50,000</div>
       <button type="button" class="btn btn--brass tier__toggle" data-tier-toggle aria-expanded="false">Know benefits</button>
       <div class="tier__panel" hidden>
         <ul class="tier__benefits">
@@ -2354,17 +2342,14 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
     </div>
     <div class="tier reveal">
       <div class="tier__name">Other Opportunities</div>
-      <div class="tier__price">₹10,000 – ₹20,000</div>
       <button type="button" class="btn btn--brass tier__toggle" data-tier-toggle aria-expanded="false">Know benefits</button>
       <div class="tier__panel" hidden>
-        <p class="tier__sub">₹20,000</p>
         <ul class="tier__benefits">
           <li>Buffer-time announcements</li>
           <li>Social media promotion in fest week</li>
           <li>Logo in promotional videos</li>
           <li>Logo in selected invites</li>
         </ul>
-        <p class="tier__sub">₹10,000</p>
         <ul class="tier__benefits">
           <li>Buffer-time announcements</li>
           <li>Social media promotion in fest week</li>
@@ -2382,15 +2367,6 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
       <div><strong>2K+</strong><span>Participants</span></div>
       <div><strong>15+</strong><span>Events</span></div>
       <div><strong>20+</strong><span>Sponsorships</span></div>
-    </div>
-  </div>
-
-  <div class="sponsors__rates reveal">
-    <p class="eyebrow eyebrow--center">Advertising Rates</p>
-    <div class="ratesgrid">
-      <div class="rate"><span>Signage ads</span><strong>Normal: ₹25 / sec</strong><strong>Prime: ₹50 / sec</strong></div>
-      <div class="rate"><span>Banner</span><strong>₹6,000</strong></div>
-      <div class="rate"><span>Stalls</span><strong>Rate as per the size of the stall</strong></div>
     </div>
   </div>
 
