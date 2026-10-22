@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://oceanica-liard.vercel.app/sitemap.xml
+Sitemap: https://www.oceanica.in/sitemap.xml
