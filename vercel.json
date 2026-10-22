@@ -4,7 +4,7 @@
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "oceanica26-oceanica.vercel.app" }],
       "destination": "https://www.oceanica.in/$1",
-      "permanent": false
+      "permanent": true
     }
   ]
 }
