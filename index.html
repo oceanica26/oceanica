@@ -892,8 +892,8 @@ h1,h2,h3,p,li,a{overflow-wrap:break-word;}
 .paybox__row{display:flex; gap:1.2rem; align-items:center; flex-wrap:wrap;}
 .paybox__qr{width:150px; height:150px; border-radius:6px; background:#fff; padding:6px; object-fit:contain;}
 .paybox__info{flex:1; min-width:200px;}
-.paybox__upi{margin:0 0 0.7rem; color:var(--paper);}
-.paybox__upi strong{font-family:var(--font-mono); color:var(--brass-bright); word-break:break-all;}
+.paybox__upi{margin:0 0 0.7rem; color:var(--paper); font-size:1.15rem;}
+.paybox__upi strong{font-family:var(--font-mono); color:var(--brass-bright); word-break:break-all; font-size:1.45rem; display:block; margin-top:0.25rem;}
 .paybox__note{margin:0.7rem 0 0; font-size:0.84rem; color:#fff;}
 
 /* ---------- Volleyball: poster background + details popup ---------- */
@@ -1195,7 +1195,7 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
 .paybox__lock{margin:0; padding:0.7rem 0.9rem; border:1px dashed var(--brass); border-radius:4px; color:var(--brass-bright); font-size:0.85rem;}
 .paybox.is-locked .paybox__amt,.paybox.is-locked .paybox__row,.paybox.is-locked .field{opacity:0.35; filter:grayscale(0.6); pointer-events:none; user-select:none;}
 .paybox.is-locked .paybox__qr{filter:blur(6px);}
-.paybox__qr{width:220px; height:auto; max-width:100%;}
+.paybox__qr{width:min(320px,100%); height:auto; max-width:100%;}
 .regform input:disabled{cursor:not-allowed;}
 .regform .consent input:disabled + span{opacity:0.5;}
 /* ===================== LATEST UPDATES ===================== */
@@ -2591,7 +2591,6 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
           <img class="paybox__qr" id="payQr" alt="UPI QR code" hidden>
           <div class="paybox__info">
             <p class="paybox__upi">UPI ID: <strong id="payUpi">(not set yet)</strong></p>
-            <a class="btn btn--ghost" id="payLink" href="#" aria-disabled="true">Pay with UPI app</a>
             <p class="paybox__note">Pay the exact amount, then enter the UPI transaction ID (UTR) from your payment app below. Your registration is confirmed once the organisers verify the payment.</p>
           </div>
         </div>
@@ -3861,16 +3860,9 @@ var OCEANICA_REG = { endpoint: 'https://script.google.com/macros/s/AKfycbz4EkZOQ
     window.oceanicaAddEvent = function(name){ add(name); };
 
     function updatePay(){
-      var upi = OCEANICA_REG.upiId, link = document.getElementById('payLink'), qr = document.getElementById('payQr');
+      var upi = OCEANICA_REG.upiId, qr = document.getElementById('payQr');
       document.getElementById('payUpi').textContent = upi || '(not set yet)';
       if (OCEANICA_REG.qr) { qr.src = OCEANICA_REG.qr; qr.hidden = false; } else { qr.hidden = true; }
-      if (upi && total() > 0 && detailsOk()) {
-        link.href = 'upi://pay?pa=' + encodeURIComponent(upi) + '&pn=' + encodeURIComponent(OCEANICA_REG.upiName || 'OCEANICA') +
-          '&am=' + total() + '&cu=INR&tn=' + encodeURIComponent('OCEANICA registration');
-        link.removeAttribute('aria-disabled'); link.style.opacity = ''; link.style.pointerEvents = '';
-      } else {
-        link.href = '#'; link.setAttribute('aria-disabled','true'); link.style.opacity = '0.45'; link.style.pointerEvents = 'none';
-      }
     }
 
     function val(n){ return form.elements[n].value.trim(); }
