@@ -1281,6 +1281,26 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
 .tkt__v{font-weight:500;color:#fff}
 .tkt__sub{opacity:1;color:#fff}
 .tkt__note{opacity:.95}
+/* ---- UTR caution box, numbers-only hint, submit nudge, ticket download warning ---- */
+.caution{display:flex;gap:.8rem;align-items:flex-start;border:1px solid #f0b429;border-left:5px solid #f0b429;border-radius:6px;background:rgba(240,180,41,.13);padding:.9rem 1rem;color:#fff;font-size:.9rem;line-height:1.55}
+.caution__icon{flex:none;width:26px;height:26px;border-radius:50%;background:#f0b429;color:#060d2e;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono)}
+.caution__title{display:block;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#f6c84c;font-weight:700;margin-bottom:.3rem}
+.caution strong{color:#f6c84c}
+.utr-hint{display:block;margin:0;font-family:var(--font-body);font-size:.8rem;letter-spacing:0;text-transform:none;color:#fff;opacity:.85;min-height:1.2em}
+.utr-hint.is-error{color:var(--coral);opacity:1;font-weight:600}
+.regform input.is-invalid{border-color:var(--coral);outline:2px solid var(--coral)}
+.submit-note{margin:0 0 .8rem;padding:.7rem .95rem;border:1px dashed var(--brass);border-radius:4px;color:var(--brass-bright);font-size:.9rem}
+.submit-note strong{color:#fff}
+@keyframes ocPulse{0%,100%{box-shadow:0 0 0 0 rgba(236,212,144,.7)}50%{box-shadow:0 0 0 12px rgba(236,212,144,0)}}
+#regSubmit.is-ready,.tkt__dl.is-pulse{animation:ocPulse 1.3s ease-in-out infinite}
+#regSubmit.is-ready{background:var(--brass-bright);color:#060d2e}
+@keyframes ocShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.tkt__caution{margin-top:12px;padding:10px 12px;border:1px solid #f0b429;border-left:4px solid #f0b429;border-radius:8px;background:rgba(240,180,41,.18);font-size:.78rem;line-height:1.45;text-align:left;color:#fff}
+.tkt__caution strong{display:block;color:#f6c84c;margin-bottom:2px}
+.tkt__caution.is-alert{border-color:#ff6b5e;background:rgba(255,107,94,.22);animation:ocShake .4s}
+.tkt__caution.is-alert strong{color:#ffa49b}
+.tkt__caution.is-done{border-color:#4cd18a;background:rgba(76,209,138,.16)}
+.tkt__caution.is-done strong{color:#7ae6ac}
 
 /* ---------- Per-event participant lists ---------- */
 .pe__intro{font-size:.88rem;line-height:1.45;color:#fff;opacity:.9;margin:0 0 .9rem}
@@ -2598,9 +2618,18 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
             <p class="paybox__note">Pay the exact amount, then enter the UPI transaction ID (UTR) from your payment app below. Your registration is confirmed once the organisers verify the payment.</p>
           </div>
         </div>
-        <label class="field">UPI transaction ID (UTR) *
-          <input type="text" name="utr" placeholder="e.g. 412345678901" inputmode="numeric" autocomplete="off" required>
+        <label class="field">UPI transaction ID (UTR) * <small>(numbers only)</small>
+          <input type="text" name="utr" placeholder="e.g. 412345678901" inputmode="numeric" pattern="[0-9]*" maxlength="22" autocomplete="off" required aria-describedby="utrHint">
+          <span class="utr-hint" id="utrHint" role="status">Numbers only (0&ndash;9), no letters. Example: 412345678901</span>
         </label>
+        <div class="caution" id="utrCaution" role="note">
+          <span class="caution__icon" aria-hidden="true">!</span>
+          <div>
+            <span class="caution__title">Caution</span>
+            Your entry will be confirmed <strong>only after you press the &ldquo;Submit registration&rdquo; button</strong>. Entering the UTR alone does not complete your registration.<br>
+            After submitting, <strong>don&rsquo;t forget to download your ticket</strong> and keep it safe &mdash; you will need it at the registration desk.
+          </div>
+        </div>
       </div>
 
       <label class="field full">Anything else we should know?
@@ -2613,6 +2642,7 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
       </label>
 
       <div class="full">
+        <p class="submit-note" id="submitNote" hidden>&darr; Last step: press <strong>Submit registration</strong> below. Your entry is not confirmed until you do.</p>
         <button type="submit" class="btn btn--brass" id="regSubmit" disabled>Submit registration</button>
       </div>
       <p class="cta__status full" id="regStatus" role="status">Complete your details and select an event to unlock payment, then submit your registration.</p>
@@ -2710,7 +2740,7 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
     </div>
   </div>
   <div class="footer__bottom">
-    <span>© 2026 OCEANICA · Indian Maritime University, Kochi Campus</span>
+    <span>© 2026 OCEANICA · Indian Maritime University, Kochi Campus · All rights reserved.</span>
     <span>Navigate. Innovate. Lead.</span>
   </div>
   <p class="footer__credit">Website developed by Mathilakath Sharan &amp; Adarsh M Nair</p>
@@ -3663,7 +3693,7 @@ var OCEANICA_REG = { endpoint: 'https://script.google.com/macros/s/AKfycbz4EkZOQ
     ['E Football',199],['BGMI',599]
   ];
   var DISCOUNT = { 'Crew Command (HR Game)': 100, 'Blue Crew': 100 }; /* \u20B9 off the registration fee */
-  var selected = [];
+  var selected = []; var UTR_MIN = 6, UTR_MAX = 22; /* UTR length limits: change UTR_MIN to 12 to require exactly-12-digit UPI refs */
   function inr(n){ return '\u20B9' + n.toLocaleString('en-IN'); }
   var PERHEAD = { 'IPL Auction': { min: 2, max: 4 } }, heads = {};
   function nHeads(name){ return heads[name] || PERHEAD[name].min; }
@@ -3701,13 +3731,31 @@ var OCEANICA_REG = { endpoint: 'https://script.google.com/macros/s/AKfycbz4EkZOQ
     row('Amount paid', d.amount, false, g2); row('UTR', d.utr, false, g2);
     var f = el('div','tkt__foot'); el('div','tkt__k','Registration ID',f); el('div','tkt__id',tid,f);
     el('div','tkt__note','Your entry is confirmed once the organisers verify your payment. Keep this ticket (download or screenshot) and show it at the registration desk.',f);
+    var cau = el('div','tkt__caution',null,f);
+    var cauT = el('strong',null,'\u26A0 Don\u2019t forget to download your ticket!',cau);
+    var cauM = el('span',null,'Press \u201CDownload ticket\u201D below and save it before you close this window. You will need it at the registration desk.',cau);
     var bt = el('div','tkt__btns',null,f);
-    var dl = el('button','tkt__dl','Download ticket',bt); dl.type='button';
+    var dl = el('button','tkt__dl is-pulse','Download ticket',bt); dl.type='button';
     var cl = el('button','tkt__cl','Close',bt); cl.type='button';
-    cl.onclick = function(){ ov.remove(); document.removeEventListener('keydown', esc); };
+    var downloaded = false, warned = false;
+    cl.onclick = function(){
+      if (!downloaded && !warned) {
+        warned = true; cau.classList.add('is-alert');
+        cauT.textContent = '\u26A0 You have not downloaded your ticket yet!';
+        cauM.textContent = 'Press \u201CDownload ticket\u201D first. Press Close again only if you have already saved it.';
+        try { dl.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (err) {}
+        return;
+      }
+      ov.remove(); document.removeEventListener('keydown', esc);
+    };
     function esc(e){ if(e.key==='Escape') cl.onclick(); }
     document.addEventListener('keydown', esc);
-    dl.onclick = function(){ downloadTicket(per ? Object.assign({}, d, { team: '' }) : d, tid, evs); };
+    dl.onclick = function(){
+      downloaded = true; dl.classList.remove('is-pulse'); cau.classList.remove('is-alert'); cau.classList.add('is-done');
+      cauT.textContent = '\u2714 Ticket download started.';
+      cauM.textContent = 'Check your Downloads folder (or Gallery/Photos on a phone) and show the ticket at the registration desk.';
+      downloadTicket(per ? Object.assign({}, d, { team: '' }) : d, tid, evs);
+    };
     document.body.appendChild(ov);
   }
   function downloadTicket(d, tid, evs){
@@ -3784,7 +3832,8 @@ var OCEANICA_REG = { endpoint: 'https://script.google.com/macros/s/AKfycbz4EkZOQ
     var list = document.getElementById('eventSelList'), submit = document.getElementById('regSubmit');
     var status = document.getElementById('regStatus');
     var HINT_DETAILS = 'Fill in all fields marked * and select at least one event to unlock payment.';
-    var HINT_PAY = 'Pay the amount shown, then enter your UPI transaction ID and tick the box to enable Submit.';
+    var HINT_PAY = 'Pay the amount shown, then enter your UPI transaction ID (numbers only) and tick the box to enable Submit.';
+    var HINT_SUBMIT = 'All set! Now press \u201CSubmit registration\u201D. Your entry is NOT confirmed until you submit.';
 
     function say(msg, err){ status.textContent = msg; status.classList.toggle('is-error', !!err); }
 
@@ -3875,7 +3924,32 @@ var OCEANICA_REG = { endpoint: 'https://script.google.com/macros/s/AKfycbz4EkZOQ
       return !!(val('name') && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val('email')) &&
         val('phone').replace(/\D/g,'').length >= 10 && val('college') && val('course') && selected.length > 0);
     }
-    function valid(){ return detailsOk() && val('utr').length >= 6 && form.elements.consent.checked; }
+    var utrEl = form.elements.utr, utrHint = document.getElementById('utrHint'), submitNote = document.getElementById('submitNote');
+    var utrErr = false, utrTimer = null;
+    function utrOk(){ var v = val('utr'); return /^[0-9]+$/.test(v) && v.length >= UTR_MIN && v.length <= UTR_MAX; }
+    function valid(){ return detailsOk() && utrOk() && form.elements.consent.checked; }
+    function utrFeedback(){
+      var v = utrEl.value;
+      utrEl.classList.toggle('is-invalid', utrErr); utrHint.classList.toggle('is-error', utrErr);
+      if (utrErr) utrHint.textContent = '\u26A0 Only numbers are allowed. Letters, spaces and symbols are not accepted.';
+      else if (!v) utrHint.textContent = 'Numbers only (0\u20139), no letters. Example: 412345678901';
+      else if (v.length < UTR_MIN) utrHint.textContent = 'Keep typing\u2026 the UTR needs at least ' + UTR_MIN + ' digits (' + v.length + ' entered).';
+      else utrHint.textContent = '\u2714 UTR looks good. Now press \u201CSubmit registration\u201D below.';
+    }
+    function flashUtrErr(){ utrErr = true; utrFeedback(); clearTimeout(utrTimer); utrTimer = setTimeout(function(){ utrErr = false; utrFeedback(); }, 2500); }
+    /* block letters/symbols as they are typed (desktop keyboards) */
+    utrEl.addEventListener('keydown', function(e){
+      if (e.key && e.key.length === 1 && !/[0-9]/.test(e.key) && !e.ctrlKey && !e.metaKey && !e.altKey) { e.preventDefault(); flashUtrErr(); }
+    });
+    /* strip anything that is not a digit (mobile keyboards, paste, autofill) */
+    utrEl.addEventListener('input', function(){
+      var raw = utrEl.value, clean = raw.replace(/[^0-9]/g, '');
+      if (raw !== clean) { utrEl.value = clean; flashUtrErr(); } else utrFeedback();
+    });
+    /* warn if the visitor leaves after entering a UTR but before pressing Submit */
+    window.addEventListener('beforeunload', function(e){
+      if (utrEl.value.length > 0) { e.preventDefault(); e.returnValue = ''; return ''; }
+    });
     function applyLock(){
       var ok = detailsOk(), box = document.getElementById('payBox');
       box.classList.toggle('is-locked', !ok);
@@ -3887,9 +3961,9 @@ var OCEANICA_REG = { endpoint: 'https://script.google.com/macros/s/AKfycbz4EkZOQ
     }
     function validate(){
       var ok = applyLock(), all = ok && valid();
-      submit.disabled = !all;
+      submit.disabled = !all; submit.classList.toggle('is-ready', all); if (submitNote) submitNote.hidden = !all; utrFeedback();
       if (status.dataset.done === '1' && !status.classList.contains('is-error') && !all) { /* keep thank-you until user edits */ }
-      if (!all) { say(ok ? HINT_PAY : HINT_DETAILS, false); }
+      if (!all) { say(ok ? HINT_PAY : HINT_DETAILS, false); } else { say(HINT_SUBMIT, false); }
     }
     form.addEventListener('input', validate); form.addEventListener('change', validate);
 
@@ -3913,7 +3987,7 @@ var OCEANICA_REG = { endpoint: 'https://script.google.com/macros/s/AKfycbz4EkZOQ
       };
       if (perList) data.eventDetails = JSON.stringify(perList);
       if (OCEANICA_REG.endpoint) {
-        submit.disabled = true; say('Submitting...', false);
+        submit.disabled = true; say('Submitting... please wait and do not close this page.', false);
         var token = 'oc' + Date.now() + Math.random().toString(36).slice(2);
         var q = new URLSearchParams();
         Object.keys(data).forEach(function(k){ q.append(k, String(data[k]).slice(0, k === 'eventDetails' ? 2500 : (k === 'team' || k === 'members') ? 1500 : 600)); });
@@ -3922,7 +3996,7 @@ var OCEANICA_REG = { endpoint: 'https://script.google.com/macros/s/AKfycbz4EkZOQ
         function fail(msg){ say(msg, true); submit.disabled = false; }
         function saved(id){
           form.reset(); selected = []; heads = {}; render(); status.dataset.done = '1';
-          say('Thank you, ' + data.name + '! Your registration' + (id ? ' (ID: ' + id + ')' : '') + ' is received. It will be confirmed once the organisers verify your payment.', false);
+          say('Thank you, ' + data.name + '! Your registration' + (id ? ' (ID: ' + id + ')' : '') + ' is received. It will be confirmed once the organisers verify your payment. Don\u2019t forget to download your ticket.', false);
           showTicket(data, id, perList);
         }
         /* credentials:'omit' = send no Google login, so it works the same for everyone */
