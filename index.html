@@ -2686,8 +2686,8 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
       <label class="field">Phone / WhatsApp *
         <input type="tel" name="phone" placeholder="10-digit mobile number" inputmode="numeric" maxlength="14" autocomplete="tel" required>
       </label>
-      <label class="field">College / Institution *
-        <input type="text" name="college" placeholder="College name" autocomplete="organization" required>
+      <label class="field">College / Institution
+        <input type="text" name="college" placeholder="College name" autocomplete="organization">
       </label>
       <label class="field full">Course &amp; year *
         <input type="text" name="course" placeholder="e.g. MBA 1st year, B.Tech 3rd year" required>
@@ -2729,7 +2729,7 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
           </div>
         </div>
         <label class="field">UPI transaction ID (UTR) * <small>(numbers only)</small>
-          <input type="text" name="utr" placeholder="e.g. 412345678901" inputmode="numeric" pattern="[0-9]*" maxlength="22" autocomplete="off" required aria-describedby="utrHint">
+          <input type="text" name="utr" placeholder="e.g. 412345678901" inputmode="numeric" pattern="[0-9]{12}" maxlength="12" autocomplete="off" required aria-describedby="utrHint">
           <span class="utr-hint" id="utrHint" role="status">Numbers only (0&ndash;9), no letters. Example: 412345678901</span>
         </label>
         <div class="caution" id="utrCaution" role="note">
@@ -3803,7 +3803,7 @@ var OCEANICA_REG = { endpoint: 'https://script.google.com/macros/s/AKfycbz4EkZOQ
     ['E Football',199],['BGMI',599]
   ];
   var DISCOUNT = { 'Crew Command (HR Game)': 100, 'Blue Crew': 100 }; /* \u20B9 off the registration fee */
-  var CLOSED = []; /* events whose registration is closed (seats full) */ var selected = []; var UTR_MIN = 6, UTR_MAX = 22; /* UTR length limits: change UTR_MIN to 12 to require exactly-12-digit UPI refs */
+  var CLOSED = []; /* events whose registration is closed (seats full) */ var selected = []; var UTR_MIN = 12, UTR_MAX = 12; /* UTR length limits: change UTR_MIN to 12 to require exactly-12-digit UPI refs */
   function inr(n){ return '\u20B9' + n.toLocaleString('en-IN'); }
   var PERHEAD = { 'IPL Auction': { min: 2, max: 4 } }, heads = {};
   function nHeads(name){ return heads[name] || PERHEAD[name].min; }
@@ -4032,7 +4032,7 @@ var OCEANICA_REG = { endpoint: 'https://script.google.com/macros/s/AKfycbz4EkZOQ
     function val(n){ return form.elements[n].value.trim(); }
     function detailsOk(){
       return !!(val('name') && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val('email')) &&
-        val('phone').replace(/\D/g,'').length >= 10 && val('college') && val('course') && selected.length > 0);
+        val('phone').replace(/\D/g,'').length >= 10 && val('course') && selected.length > 0);
     }
     var utrEl = form.elements.utr, utrHint = document.getElementById('utrHint'), submitNote = document.getElementById('submitNote');
     var utrErr = false, utrTimer = null;
@@ -4040,10 +4040,11 @@ var OCEANICA_REG = { endpoint: 'https://script.google.com/macros/s/AKfycbz4EkZOQ
     function valid(){ return detailsOk() && utrOk() && form.elements.consent.checked; }
     function utrFeedback(){
       var v = utrEl.value;
-      utrEl.classList.toggle('is-invalid', utrErr); utrHint.classList.toggle('is-error', utrErr);
+      var utrShort = v.length > 0 && v.length < UTR_MIN;
+      utrEl.classList.toggle('is-invalid', utrErr); utrHint.classList.toggle('is-error', utrErr || utrShort);
       if (utrErr) utrHint.textContent = '\u26A0 Only numbers are allowed. Letters, spaces and symbols are not accepted.';
       else if (!v) utrHint.textContent = 'Numbers only (0\u20139), no letters. Example: 412345678901';
-      else if (v.length < UTR_MIN) utrHint.textContent = 'Keep typing\u2026 the UTR needs at least ' + UTR_MIN + ' digits (' + v.length + ' entered).';
+      else if (v.length < UTR_MIN) utrHint.textContent = '\u26A0 Caution: the UTR must be exactly ' + UTR_MIN + ' digits (' + v.length + ' entered, ' + (UTR_MIN - v.length) + ' more needed).';
       else utrHint.textContent = '\u2714 UTR looks good. Now press \u201CSubmit registration\u201D below.';
     }
     function flashUtrErr(){ utrErr = true; utrFeedback(); clearTimeout(utrTimer); utrTimer = setTimeout(function(){ utrErr = false; utrFeedback(); }, 2500); }
