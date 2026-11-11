@@ -1301,12 +1301,7 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
 .tkt__caution.is-alert strong{color:#ffa49b}
 .tkt__caution.is-done{border-color:#4cd18a;background:rgba(76,209,138,.16)}
 .tkt__caution.is-done strong{color:#7ae6ac}
-/* ---- Seaman Skills: dimmed card with crossed-out "Registration closed" ---- */
-.waypoint--poster-ns .waypoint__card{position:relative;overflow:hidden}
-.waypoint--poster-ns .waypoint__card::before{filter:grayscale(1) brightness(.42)}
-.waypoint--poster-ns .waypoint__card > *:not(.closed-stamp){opacity:.55}
-.waypoint--poster-ns .waypoint__card::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to top right,transparent calc(50% - 1.5px),rgba(255,107,94,.85) calc(50% - 1.5px),rgba(255,107,94,.85) calc(50% + 1.5px),transparent calc(50% + 1.5px)),linear-gradient(to top left,transparent calc(50% - 1.5px),rgba(255,107,94,.85) calc(50% - 1.5px),rgba(255,107,94,.85) calc(50% + 1.5px),transparent calc(50% + 1.5px))}
-.waypoint .waypoint__card > .closed-stamp,.route--grid .waypoint--poster .waypoint__card > .closed-stamp{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-12deg);z-index:3;padding:.45rem 1.2rem;background:#c62f25;color:#fff;border:2px solid #fff;border-radius:4px;font-family:var(--font-mono);font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:.85rem;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.5);opacity:1;pointer-events:none}
+
 /* ---- Chief guests ---- */
 .guests{max-width:var(--container);margin:0 auto 3.5rem}
 .guests__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6rem}
@@ -1706,8 +1701,7 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
       <div class="waypoint__card">
         <h3>Seaman Skills</h3>
         <p>Nauti Skill · Prize pool ₹6,000</p>
-        <div class="closed-stamp">Registration closed</div>
-        <div class="waypoint__action"><button type="button" class="btn btn--ghost" data-vb-open="seaman-skills">View details</button><button type="button" class="btn btn--brass is-closed" disabled aria-disabled="true">Seats full</button></div>
+        <div class="waypoint__action"><button type="button" class="btn btn--ghost" data-vb-open="seaman-skills">View details</button><button type="button" class="btn btn--brass" data-nav="register" data-event="Seaman Skills" data-register-added>Register</button></div>
       </div>
     </article>
 
@@ -2186,8 +2180,7 @@ p,li,dd,.eventdetail dd{text-align:justify !important; text-justify:inter-word; 
           <div><dt>Registration fee</dt><dd>₹199</dd></div>
           <div><dt>Participation</dt><dd>Individual</dd></div>
         </dl>
-        <div class="closed-stamp">Registration closed</div>
-        <div class="waypoint__action"><button type="button" class="btn btn--ghost" data-vb-open="seaman-skills">View details</button><button type="button" class="btn btn--brass is-closed" disabled aria-disabled="true">Seats full</button></div>
+        <div class="waypoint__action"><button type="button" class="btn btn--ghost" data-vb-open="seaman-skills">View details</button><button type="button" class="btn btn--brass" data-nav="register" data-event="Seaman Skills" data-register-added>Register</button></div>
       </div>
     </article>
 
@@ -3741,7 +3734,7 @@ var OCEANICA_REG = { endpoint: 'https://script.google.com/macros/s/AKfycbz4EkZOQ
     ['E Football',199],['BGMI',599]
   ];
   var DISCOUNT = { 'Crew Command (HR Game)': 100, 'Blue Crew': 100 }; /* \u20B9 off the registration fee */
-  var CLOSED = ['Seaman Skills']; /* events whose registration is closed (seats full) */ var selected = []; var UTR_MIN = 6, UTR_MAX = 22; /* UTR length limits: change UTR_MIN to 12 to require exactly-12-digit UPI refs */
+  var CLOSED = []; /* events whose registration is closed (seats full) */ var selected = []; var UTR_MIN = 6, UTR_MAX = 22; /* UTR length limits: change UTR_MIN to 12 to require exactly-12-digit UPI refs */
   function inr(n){ return '\u20B9' + n.toLocaleString('en-IN'); }
   var PERHEAD = { 'IPL Auction': { min: 2, max: 4 } }, heads = {};
   function nHeads(name){ return heads[name] || PERHEAD[name].min; }
